@@ -103,7 +103,7 @@ Then repeat the programming command. Do not use recovery on a device whose provi
 
 ## Radio layout and tuning
 
-The final L2-to-antenna feed is a direct top-layer trace with no vias. The antenna sits at the right edge inside a top/bottom copper-free window. Keep metal, the battery, enclosure ribs, cables, and a user's hand as far from that edge as the product permits.
+The final L2-to-antenna feed is an explicitly straight top-layer trace with no vias. The antenna sits at the right edge inside a top/bottom copper-free window enforced by a routing keepout. The keepout's `excludeRefs={[".ANT1"]}` allows the manually routed antenna feed to enter without suppressing violations from unrelated traces; it remains a hard obstacle to the autorouter. Keep metal, the battery, enclosure ribs, cables, and a user's hand as far from that edge as the product permits.
 
 `L1 = 3.9 nH` and `C3 = 0.8 pF` follow Nordic's nRF52810 LDO reference network. `L2 = 6.8 nH` is a starting value from the Walsin antenna reference board. `C13` and `C14` are unpopulated tuning positions. Tune the complete assembled product with a VNA after selecting the enclosure, battery, PCB material, and manufacturer stack-up.
 
