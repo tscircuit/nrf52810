@@ -143,6 +143,15 @@ export default () => (
       schX={49}
       schY={-25}
     />
+    <keepout
+      shape="rect"
+      pcbX={12.6}
+      pcbY={3.35}
+      width="4.8mm"
+      height="5.7mm"
+      layers={["top", "bottom"]}
+      excludeRefs={[".ANT1"]}
+    />
 
     <testpoint
       name="TP_VDD"
@@ -283,7 +292,15 @@ export default () => (
     <trace from=".L1 > .pin2" to=".L2 > .pin1" width="0.5mm" maxLength="5mm" />
     <trace from=".L1 > .pin2" to=".C13 > .pin1" width="0.18mm" maxLength="8mm" />
     <trace from=".C13 > .pin2" to="net.GND" width="0.15mm" maxLength="5mm" />
-    <trace from=".L2 > .pin2" to=".ANT1 > .FEED" width="0.5mm" maxLength="12mm" />
+    <trace
+      name="RF_FEED"
+      from=".L2 > .pin2"
+      to=".ANT1 > .FEED"
+      width="0.5mm"
+      maxLength="12mm"
+      pcbPathRelativeTo=".L2 > .pin2"
+      pcbPath={["ANT1.FEED"]}
+    />
     <trace from=".L2 > .pin2" to=".C14 > .pin1" width="0.5mm" maxLength="12mm" />
     <trace from=".C14 > .pin2" to="net.GND" width="0.15mm" maxLength="5mm" />
 
