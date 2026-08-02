@@ -359,12 +359,21 @@ export default () => (
         pcbX={4.0}
         pcbY={8.6}
         pcbRotation={90}
+        noSchematicRepresentation
+      />
+      <schematicsymbol
+        name="X1_Symbol"
+        displayName="X1"
+        chipRef=".X1"
+        symbolName="crystal_4pin"
         schX={-4}
         schY={CLOCK_SHEET_Y + 1}
         schSectionName={HF_CLOCK_SECTION}
-        schPinArrangement={{
-          leftSide: ["XTAL1", "XTAL2"],
-          rightSide: ["GND1", "GND2"],
+        connections={{
+          pin1: ".X1 > .XTAL1",
+          gnd1: ".X1 > .GND1",
+          pin3: ".X1 > .XTAL2",
+          gnd2: ".X1 > .GND2",
         }}
       />
       <PcbCap
@@ -373,7 +382,7 @@ export default () => (
         pcbX={0.8}
         pcbY={9.9}
         schX={-5}
-        schY={CLOCK_SHEET_Y + 2.5}
+        schY={CLOCK_SHEET_Y - 1}
         schSectionName={HF_CLOCK_SECTION}
       />
       <PcbCap
@@ -401,10 +410,20 @@ export default () => (
         name="X2"
         pcbX={-4.2}
         pcbY={5.1}
+        noSchematicRepresentation
+      />
+      <schematicsymbol
+        name="X2_Symbol"
+        displayName="X2"
+        chipRef=".X2"
+        symbolName="crystal"
         schX={6}
         schY={CLOCK_SHEET_Y + 1}
         schSectionName={LF_CLOCK_SECTION}
-        schPinArrangement={{ leftSide: ["OSC1", "OSC2"], rightSide: [] }}
+        connections={{
+          pin1: ".X2 > .OSC1",
+          pin2: ".X2 > .OSC2",
+        }}
       />
       <PcbCap
         name="C11"
@@ -412,7 +431,7 @@ export default () => (
         pcbX={-6.6}
         pcbY={6.9}
         schX={5}
-        schY={CLOCK_SHEET_Y + 2.5}
+        schY={CLOCK_SHEET_Y - 1}
         schSectionName={LF_CLOCK_SECTION}
       />
       <PcbCap
