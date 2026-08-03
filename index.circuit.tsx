@@ -75,6 +75,7 @@ export default () => (
     layers={2}
     solderMaskColor="black"
     silkscreenColor="white"
+    doubleSidedAssembly
     isViaInPadAllowed={false}
     schLayout={{ layoutMode: "relative" }}
     autorouter={{
@@ -181,7 +182,7 @@ export default () => (
 
       <MY_2032_16
         name="BT1"
-        layer="top"
+        layer="bottom"
         pcbX={-9}
         pcbY={0}
         pcbRotation={90}
@@ -641,14 +642,14 @@ export default () => (
         from=".U1 > .XL1"
         to=".X2 > .OSC1"
         width="0.15mm"
-        maxLength="10mm"
+        maxLength="12mm"
         schDisplayLabel="XL1"
       />
       <trace
         from=".U1 > .XL2"
         to=".X2 > .OSC2"
         width="0.15mm"
-        maxLength="10mm"
+        maxLength="12mm"
         schDisplayLabel="XL2"
       />
       <trace

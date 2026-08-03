@@ -1,6 +1,6 @@
 Reference,Quantity,Value / part,Footprint,Manufacturer,JLCPCB,Placement,Notes
 U1,1,NRF52810-QFAA-R,QFN48 6x6 mm,Nordic Semiconductor,C141828,Top,nRF52810 BLE SoC
-BT1,1,MY-2032-16,Custom CR2032 holder,MYOUNG,C2902340,Top,Two outer pads positive; center pad negative
+BT1,1,MY-2032-16,Custom CR2032 holder,MYOUNG,C2902340,Bottom,Two outer pads positive; center pad negative
 J2,1,BM05B-SRSS-TB(LF)(SN),JST-SH 5P 1.0 mm,JST,C160391,Top,SWD: VTREF GND SWDIO SWDCLK nRESET
 LED1,1,E6C0606RGBC3UDA,0606 RGB,Everlight,C375569,Top,Common-anode RGB status LED
 ANT1,1,RFANT3216120A5T,3216 chip antenna,Walsin,C127629,Top,2.4 GHz antenna; pin 1 feed; pin 2 NC

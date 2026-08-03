@@ -9,9 +9,9 @@ A compact, two-layer [tscircuit](https://tscircuit.com) board built around Nordi
 ## Hardware
 
 - 30 mm × 30 mm, 1.0 mm thick, two-layer PCB with rounded corners
-- All assembled components are on the top side
+- All electronics are assembled on the top side; the CR2032 holder is on the bottom
 - `NRF52810-QFAA-R` in QFN48 using its internal LDO supply configuration
-- Top-mounted `MY-2032-16` CR2032 holder
+- Bottom-mounted `MY-2032-16` CR2032 holder
 - Common-anode RGB status LED on three PWM-capable GPIOs
 - 32 MHz HFXO and 32.768 kHz LFXO crystals
 - Edge-mounted Walsin `RFANT3216120A5T` 2.4 GHz chip antenna
@@ -37,7 +37,7 @@ The generated circuit data and renders are written to `dist/`.
 
 Use a non-rechargeable CR2032 cell only. The board has no battery charger or external power input.
 
-The holder is on the top. Its two outer clip pads connect directly to `VBAT`; the large center contact is `GND`. Insert the cell with its marked `+` face toward the retaining clip.
+The holder is on the bottom. Its two outer clip pads connect directly to `VBAT`; the large center contact is `GND`. Insert the cell with its marked `+` face toward the retaining clip.
 
 ## SWD programming connections
 
