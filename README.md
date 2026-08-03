@@ -63,7 +63,7 @@ The bottom-edge `J2` connector is a 1.0 mm-pitch JST-SH-compatible five-pin SWD 
 
 The board-edge silkscreen reads `R C D G V` from left to right when viewing the PCB from the top, corresponding to J2 pins 5 through 1. Verify the cable orientation and pin numbering; JST-SH debug cables do not have one universal pinout.
 
-The five round backup pads read left to right, matching the `V D G C R` silkscreen:
+The five round backup pads run along the lower-right edge. They read left to right as `V D G C R`:
 
 | Mark | Signal | Probe connection |
 | --- | --- | --- |

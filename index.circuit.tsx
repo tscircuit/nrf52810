@@ -264,7 +264,7 @@ export default () => (
         footprintVariant="pad"
         padShape="circle"
         padDiameter="1.6mm"
-        pcbX={-5.0}
+        pcbX={4}
         pcbY={-8.5}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={11}
@@ -276,7 +276,7 @@ export default () => (
         footprintVariant="pad"
         padShape="circle"
         padDiameter="1.6mm"
-        pcbX={-2.5}
+        pcbX={6.25}
         pcbY={-8.5}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={14}
@@ -288,7 +288,7 @@ export default () => (
         footprintVariant="pad"
         padShape="circle"
         padDiameter="1.6mm"
-        pcbX={0}
+        pcbX={8.5}
         pcbY={-8.5}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={13}
@@ -300,7 +300,7 @@ export default () => (
         footprintVariant="pad"
         padShape="circle"
         padDiameter="1.6mm"
-        pcbX={2.5}
+        pcbX={10.75}
         pcbY={-8.5}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={14}
@@ -312,7 +312,7 @@ export default () => (
         footprintVariant="pad"
         padShape="circle"
         padDiameter="1.6mm"
-        pcbX={5.0}
+        pcbX={13}
         pcbY={-8.5}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={14}
@@ -1092,9 +1092,9 @@ export default () => (
 
     <silkscreentext
       text="nRF52810 TRACKER"
-      pcbX={8}
-      pcbY={-11}
-      fontSize="0.8mm"
+      pcbX={7}
+      pcbY={-13.2}
+      fontSize="0.55mm"
     />
     <silkscreentext
       text="RF KEEP CLEAR"
@@ -1102,7 +1102,7 @@ export default () => (
       pcbY={6.8}
       fontSize="0.55mm"
     />
-    <silkscreentext text="V D G C R" pcbX={0} pcbY={-7.1} fontSize="0.55mm" />
+    <silkscreentext text="V D G C R" pcbX={8.5} pcbY={-7.1} fontSize="0.55mm" />
     <silkscreentext text="R C D G V" pcbX={0} pcbY={-14.2} fontSize="0.5mm" />
     <silkscreentext text="RGB" pcbX={-11} pcbY={-13} fontSize="0.5mm" />
     <silkscreentext
