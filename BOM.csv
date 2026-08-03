@@ -1,11 +1,7 @@
 Reference,Quantity,Value / part,Footprint,Manufacturer,JLCPCB,Placement,Notes
 U1,1,NRF52810-QFAA-R,QFN48 6x6 mm,Nordic Semiconductor,C141828,Top,nRF52810 BLE SoC
-BT1,1,MY-2032-16,Custom CR2032 holder,MYOUNG,C2902340,Bottom,Two outer pads positive; center pad negative
-J1,1,TYPE-C-31-M-12,USB-C 16P mid-mount,Generic,C165948,Top,Power only; USB data and SBU unconnected
+BT1,1,MY-2032-16,Custom CR2032 holder,MYOUNG,C2902340,Top,Two outer pads positive; center pad negative
 J2,1,BM05B-SRSS-TB(LF)(SN),JST-SH 5P 1.0 mm,JST,C160391,Top,SWD: VTREF GND SWDIO SWDCLK nRESET
-U2,1,MCP1700T-3302E/TT,SOT-23-3,Microchip,C39051,Top,3.3 V USB input regulator
-D_USB,1,BAT54HT1G,SOD-323,onsemi,C21107,Top,USB output isolation Schottky diode
-Q1,1,AO3401A,SOT-23,Alpha & Omega Semiconductor,C15127,Top,P-channel battery isolation MOSFET
 LED1,1,E6C0606RGBC3UDA,0606 RGB,Everlight,C375569,Top,Common-anode RGB status LED
 ANT1,1,RFANT3216120A5T,3216 chip antenna,Walsin,C127629,Top,2.4 GHz antenna; pin 1 feed; pin 2 NC
 X1,1,X201632MKB4SI,2016-4P,YXC,C718072,Top,32 MHz CL 8 pF +/-10 ppm
@@ -15,10 +11,7 @@ C11 C12,2,12 pF,0402,Generic,C1547,Top,C0G/NP0 LFXO load capacitors
 C4 C5 C8,3,100 nF,0402,Generic,C1525,Top,X7R decoupling
 C7,1,100 pF,0402,Generic,C1546,Top,C0G/NP0 DEC2 capacitor
 C9,1,4.7 uF,0603,Generic,C19666,Top,X5R/X7R bulk supply capacitor
-C10 C15 C16,3,1 uF,0603,Generic,C15849,Top,X5R/X7R DEC4 and USB regulator capacitors
-R_CC1 R_CC2,2,5.1 kohm,0402,Generic,C25905,Top,USB-C CC pull-down resistors
-R_GATE_USB,1,100 kohm,0402,Generic,C25741,Top,USB-present gate drive resistor
-R_GATE_PD,1,1 Mohm,0402,Generic,C26083,Top,Battery-switch gate pull-down
+C10,1,1 uF,0603,Generic,C15849,Top,X5R/X7R DEC4 capacitor
 R_LED_B R_LED_G R_LED_R,3,1 kohm,0402,Generic,C11702,Top,RGB LED current limiting
 L1,1,3.9 nH,0402,Generic,,Top,High-Q Nordic RF matching inductor
 C3,1,0.8 pF,0402,Generic,C88902,Top,C0G/NP0 Nordic RF matching capacitor

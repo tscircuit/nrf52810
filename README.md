@@ -1,6 +1,6 @@
 # nRF52810 CR2032 Bluetooth tracker
 
-A compact, two-layer [tscircuit](https://tscircuit.com) board built around Nordic Semiconductor's `NRF52810-QFAA-R`. It is a hardware starting point for a low-duty-cycle Bluetooth Low Energy advertising tracker powered by either a replaceable CR2032 primary cell or a power-only USB-C input.
+A compact, two-layer [tscircuit](https://tscircuit.com) board built around Nordic Semiconductor's `NRF52810-QFAA-R`. It is a hardware starting point for a low-duty-cycle Bluetooth Low Energy advertising tracker powered by a replaceable CR2032 primary cell.
 
 ![PCB layout](docs/pcb.png)
 
@@ -9,9 +9,9 @@ A compact, two-layer [tscircuit](https://tscircuit.com) board built around Nordi
 ## Hardware
 
 - 30 mm × 30 mm, 1.0 mm thick, two-layer PCB with rounded corners
+- All assembled components are on the top side
 - `NRF52810-QFAA-R` in QFN48 using its internal LDO supply configuration
-- Bottom-mounted `MY-2032-16` holder with a P-channel MOSFET battery-isolation path
-- Power-only USB-C input with 5.1 kΩ CC pull-downs, a 3.3 V MCP1700 LDO, and Schottky source isolation
+- Top-mounted `MY-2032-16` CR2032 holder
 - Common-anode RGB status LED on three PWM-capable GPIOs
 - 32 MHz HFXO and 32.768 kHz LFXO crystals
 - Edge-mounted Walsin `RFANT3216120A5T` 2.4 GHz chip antenna
@@ -35,17 +35,9 @@ The generated circuit data and renders are written to `dist/`.
 
 ## Battery
 
-Use a non-rechargeable CR2032 cell only. The board does not contain a battery charger. USB power is isolated from the cell and must never be treated as a charging input.
+Use a non-rechargeable CR2032 cell only. The board has no battery charger or external power input.
 
-The holder is on the bottom. Its two outer clip pads connect to `VBAT_RAW`; the large center contact is `GND`. With the normal holder orientation, insert the cell with its marked `+` face toward the retaining clip.
-
-With USB disconnected, `Q1` turns on and connects the coin cell to the system `VBAT` rail with low loss. When USB is present, the 5 V VBUS signal turns `Q1` off so the cell is disconnected while the USB regulator supplies the board.
-
-## USB-C power
-
-`J1` is a power-only USB-C sink. Its USB 2.0 data and SBU pins are intentionally unconnected, so it cannot program the nRF52810 and does not provide serial communication. The two 5.1 kΩ CC resistors request the source's default USB 5 V supply; do not apply a higher fixed voltage or bypass USB-C negotiation.
-
-`U2` regulates VBUS to 3.3 V and `D_USB` isolates its output from `VBAT`, leaving approximately 3.0–3.1 V at the system rail under normal USB-powered loads. The USB connector is on the left edge, opposite the antenna. Keep an attached cable away from the antenna end during RF measurements.
+The holder is on the top. Its two outer clip pads connect directly to `VBAT`; the large center contact is `GND`. Insert the cell with its marked `+` face toward the retaining clip.
 
 ## SWD programming connections
 
@@ -73,7 +65,7 @@ The five round backup pads run along the lower-right edge. They read left to rig
 | C | `SWDCLK` | SWD clock |
 | R | `nRESET` | Target reset |
 
-Power the target before connecting to it, using either the CR2032 or USB-C. A probe's `VTref` pin normally senses the target voltage and does not necessarily power the board. If a probe supplies 3.0 V to `VTREF` instead, disconnect USB and remove the coin cell so the probe cannot back-power either source. Use 3.0 V-compatible I/O and never apply 5 V to `VTREF`.
+Power the target before connecting to it. A probe's `VTref` pin normally senses the target voltage and does not necessarily power the board. If a probe supplies 3.0 V to `VTREF` instead, remove the coin cell so the probe cannot drive the battery. Use 3.0 V-compatible I/O and never apply 5 V to `VTREF`.
 
 `SWDIO`, `SWDCLK`, `GND`, and `VTref` are required. `nRESET` is recommended and is useful during recovery.
 
@@ -152,7 +144,7 @@ The antenna feed geometry is not automatically a guaranteed 50 Ω impedance. Rec
 - Use high-Q 0402 inductors for L1 and L2
 - Leave C13 and C14 unpopulated until RF measurements call for them
 
-Ground-transition vias are placed adjacent to the exposed pad and local C3, C7, and C8 ground terminals. The layout intentionally avoids via-in-pad, including at the USB-C connector.
+Ground-transition vias are placed adjacent to the exposed pad and local C3, C7, and C8 ground terminals. The layout intentionally avoids via-in-pad.
 
 ## Production warning
 
