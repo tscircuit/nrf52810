@@ -201,7 +201,7 @@ export default () => (
         capacitance="100nF"
         pcbX={6.6}
         pcbY={5.8}
-        schX={4}
+        schX={3}
         schY={0}
         schSectionName={MCU_POWER_SECTION}
       />
@@ -211,7 +211,7 @@ export default () => (
         footprint="0603"
         pcbX={0.7}
         pcbY={8.0}
-        schX={4}
+        schX={4.57}
         schY={-1.5}
         schSectionName={MCU_POWER_SECTION}
       />
@@ -297,6 +297,13 @@ export default () => (
       <trace from=".U1 > .DEC1" to=".C5 > .pin1" width="0.15mm" />
       <trace from=".C5 > .pin2" to="net.GND" width="0.15mm" />
       <trace from=".U1 > .DEC2" to=".C7 > .pin1" width="0.15mm" />
+      <netlabel
+        net="GND"
+        connectsTo=".C7 > .pin2"
+        schX={4.5}
+        schY={1.2}
+        anchorSide="top"
+      />
       <trace
         from=".U1 > .DEC3"
         to=".C8 > .pin1"
@@ -306,13 +313,20 @@ export default () => (
           { x: 5.75, y: 5.8 },
         ]}
       />
+      <netlabel
+        net="GND"
+        connectsTo=".C8 > .pin2"
+        schX={3}
+        schY={-0.3}
+        anchorSide="top"
+      />
       <via
         name="VIA_C7_GND"
         pcbX={7.21}
         pcbY={4.3}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
-        connectsTo={[".C7 > .pin2", "net.GND"]}
+        connectsTo="net.GND"
       />
       <via
         name="VIA_C8_GND"
@@ -320,7 +334,7 @@ export default () => (
         pcbY={5.8}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
-        connectsTo={[".C8 > .pin2", "net.GND"]}
+        connectsTo="net.GND"
       />
       <trace from=".U1 > .DEC4" to=".C10 > .pin1" width="0.15mm" />
       <trace from=".C10 > .pin2" to="net.GND" width="0.15mm" />
@@ -580,7 +594,7 @@ export default () => (
         name="ANT1"
         pcbX={13.0}
         pcbY={3.3}
-        schX={6}
+        schX={6.82}
         schY={RF_SHEET_Y + 1}
         schSectionName={ANTENNA_SECTION}
       />
