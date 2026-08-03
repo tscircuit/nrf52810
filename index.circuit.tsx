@@ -68,11 +68,11 @@ export default () => (
     solderMaskColor="black"
     silkscreenColor="white"
     doubleSidedAssembly
-    isViaInPadAllowed
+    isViaInPadAllowed={false}
     schLayout={{ layoutMode: "relative" }}
     autorouter={{
       preset: "auto_local",
-      allowViaInPad: true,
+      allowViaInPad: false,
       traceClearance: "0.15mm",
     }}
   >
@@ -191,7 +191,7 @@ export default () => (
       <PcbCap
         name="C7"
         capacitance="100pF"
-        pcbX={6.7}
+        pcbX={7.4}
         pcbY={4.3}
         schX={4.5}
         schY={1.5}
@@ -200,7 +200,7 @@ export default () => (
       <PcbCap
         name="C8"
         capacitance="100nF"
-        pcbX={6.6}
+        pcbX={7.4}
         pcbY={5.8}
         schX={3}
         schY={0}
@@ -210,8 +210,9 @@ export default () => (
         name="C10"
         capacitance="1uF"
         footprint="0603"
-        pcbX={0.7}
-        pcbY={8.0}
+        pcbX={1.0}
+        pcbY={8.7}
+        pcbRotation={90}
         schX={4.57}
         schY={-1.5}
         schSectionName={MCU_POWER_SECTION}
@@ -282,13 +283,23 @@ export default () => (
       <trace from=".U1 > .VDD3" to="net.VBAT" width="0.15mm" />
       <trace from=".U1 > .VSS1" to="net.GND" width="0.15mm" />
       <trace from=".U1 > .VSS2" to="net.GND" width="0.15mm" />
+      <trace
+        from=".U1 > .EP"
+        to="net.GND"
+        width="0.1mm"
+        pcbPathRelativeTo=".U1 > .EP"
+        pcbPath={[
+          { x: 2.3, y: 2.3 },
+          { x: 2.9, y: 2.9 },
+        ]}
+      />
       <via
         name="VIA_EP_GND"
-        pcbX={2.0}
-        pcbY={3.5}
+        pcbX={4.9}
+        pcbY={6.4}
         holeDiameter="0.3mm"
         outerDiameter="0.6mm"
-        connectsTo={[".U1 > .EP", "net.GND"]}
+        connectsTo="net.GND"
       />
 
       <trace from=".C4 > .pin1" to="net.VBAT" width="0.15mm" />
@@ -309,10 +320,6 @@ export default () => (
         from=".U1 > .DEC3"
         to=".C8 > .pin1"
         width="0.15mm"
-        pcbRouteHints={[
-          { x: 5.75, y: 4.5 },
-          { x: 5.75, y: 5.8 },
-        ]}
       />
       <netlabel
         net="GND"
@@ -323,19 +330,19 @@ export default () => (
       />
       <via
         name="VIA_C7_GND"
-        pcbX={7.21}
-        pcbY={4.3}
+        pcbX={7.91}
+        pcbY={5.0}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
-        connectsTo="net.GND"
+        connectsTo={[".C7 > .pin2", "net.GND"]}
       />
       <via
         name="VIA_C8_GND"
-        pcbX={7.11}
-        pcbY={5.8}
+        pcbX={7.91}
+        pcbY={6.5}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
-        connectsTo="net.GND"
+        connectsTo={[".C8 > .pin2", "net.GND"]}
       />
       <trace from=".U1 > .DEC4" to=".C10 > .pin1" width="0.15mm" />
       <trace from=".C10 > .pin2" to="net.GND" width="0.15mm" />
@@ -394,8 +401,8 @@ export default () => (
       <PcbCap
         name="C1"
         capacitance="12pF"
-        pcbX={0.8}
-        pcbY={9.9}
+        pcbX={2.0}
+        pcbY={11.2}
         schX={-5}
         schY={CLOCK_SHEET_Y - 1}
         schSectionName={HF_CLOCK_SECTION}
@@ -546,8 +553,8 @@ export default () => (
         name="L1"
         inductance="3.9nH"
         footprint="0402"
-        pcbX={6.7}
-        pcbY={3.3}
+        pcbX={7}
+        pcbY={2.7}
         schX={-3}
         schY={RF_SHEET_Y + 1}
         schSectionName={RF_MATCH_SECTION}
@@ -556,7 +563,7 @@ export default () => (
         name="C3"
         capacitance="0.8pF"
         pcbX={6.7}
-        pcbY={1.9}
+        pcbY={1}
         schX={-3}
         schY={RF_SHEET_Y - 1}
         schSectionName={RF_MATCH_SECTION}
@@ -605,18 +612,22 @@ export default () => (
         to=".L1 > .pin1"
         width="0.18mm"
         maxLength="4mm"
+        pcbPathRelativeTo=".U1 > .ANT"
+        pcbPath={[
+          { x: 3.8, y: -0.2 },
+          { x: 4.49, y: -0.8 },
+        ]}
       />
       <trace
         from=".L1 > .pin1"
         to=".C3 > .pin1"
         width="0.18mm"
         maxLength="4mm"
-        pcbStraightLine
       />
       <via
         name="VIA_C3_GND"
         pcbX={7.21}
-        pcbY={1.9}
+        pcbY={0.2}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
         connectsTo={[".C3 > .pin2", "net.GND"]}
@@ -633,7 +644,18 @@ export default () => (
         width="0.18mm"
         maxLength="8mm"
       />
-      <trace from=".C13 > .pin2" to="net.GND" width="0.15mm" maxLength="5mm" />
+      <trace
+        from=".C13 > .pin2"
+        to="net.GND"
+        width="0.15mm"
+        maxLength="5mm"
+        pcbPathRelativeTo=".C13 > .pin2"
+        pcbPath={[
+          { x: 0.51, y: -1.2 },
+          { x: 0.51, y: -1.2, via: true, toLayer: "bottom" },
+          { x: 0.51, y: -1.2 },
+        ]}
+      />
       <trace
         name="RF_FEED"
         from=".L2 > .pin2"
