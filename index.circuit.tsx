@@ -995,13 +995,17 @@ export default () => (
         width="0.18mm"
         maxLength="4mm"
       />
-      <via
-        name="VIA_C3_GND"
-        pcbX={7.21}
-        pcbY={0.2}
-        holeDiameter="0.2mm"
-        outerDiameter="0.35mm"
-        connectsTo={[".C3 > .pin2", "net.GND"]}
+      <trace
+        from=".C3 > .pin2"
+        to="net.GND"
+        width="0.15mm"
+        maxLength="5mm"
+        pcbPathRelativeTo=".C3 > .pin2"
+        pcbPath={[
+          { x: 0.51, y: -0.8 },
+          { x: 0.51, y: -0.8, via: true, toLayer: "bottom" },
+          { x: 0.51, y: -0.8 },
+        ]}
       />
       <trace
         from=".L1 > .pin2"
