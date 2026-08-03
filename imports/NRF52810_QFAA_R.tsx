@@ -1,4 +1,5 @@
 import type { ChipProps } from "@tscircuit/props"
+import { Fragment } from "react"
 
 const pinLabels = {
   pin1: ["DEC1"],
@@ -49,7 +50,7 @@ const pinLabels = {
   pin46: ["DEC4"],
   pin47: ["DCC"],
   pin48: ["VDD2"],
-  pin49: ["EP"]
+  pin49: ["EP"],
 } as const
 
 export const NRF52810_QFAA_R = (props: ChipProps<typeof pinLabels>) => {
@@ -57,52 +58,58 @@ export const NRF52810_QFAA_R = (props: ChipProps<typeof pinLabels>) => {
     <chip
       pinLabels={pinLabels}
       supplierPartNumbers={{
-  "jlcpcb": [
-    "C141828"
-  ]
-}}
+        jlcpcb: ["C141828"],
+      }}
       manufacturerPartNumber="NRF52810_QFAA_R"
       footprint={
         <footprint>
           {Array.from({ length: 12 }, (_, index) => (
-            <smtpad
-              portHints={[`pin${index + 1}`]}
-              pcbX={-3.0}
-              pcbY={2.2 - index * 0.4}
-              width="0.95mm"
-              height="0.2mm"
-              shape="rect"
-            />
+            <Fragment key={`left-${index}`}>
+              <smtpad
+                portHints={[`pin${index + 1}`]}
+                pcbX={-3.0}
+                pcbY={2.2 - index * 0.4}
+                width="0.95mm"
+                height="0.2mm"
+                shape="rect"
+              />
+            </Fragment>
           ))}
           {Array.from({ length: 12 }, (_, index) => (
-            <smtpad
-              portHints={[`pin${index + 13}`]}
-              pcbX={-2.2 + index * 0.4}
-              pcbY={-3.0}
-              width="0.2mm"
-              height="0.95mm"
-              shape="rect"
-            />
+            <Fragment key={`bottom-${index}`}>
+              <smtpad
+                portHints={[`pin${index + 13}`]}
+                pcbX={-2.2 + index * 0.4}
+                pcbY={-3.0}
+                width="0.2mm"
+                height="0.95mm"
+                shape="rect"
+              />
+            </Fragment>
           ))}
           {Array.from({ length: 12 }, (_, index) => (
-            <smtpad
-              portHints={[`pin${index + 25}`]}
-              pcbX={3.0}
-              pcbY={-2.2 + index * 0.4}
-              width="0.95mm"
-              height="0.2mm"
-              shape="rect"
-            />
+            <Fragment key={`right-${index}`}>
+              <smtpad
+                portHints={[`pin${index + 25}`]}
+                pcbX={3.0}
+                pcbY={-2.2 + index * 0.4}
+                width="0.95mm"
+                height="0.2mm"
+                shape="rect"
+              />
+            </Fragment>
           ))}
           {Array.from({ length: 12 }, (_, index) => (
-            <smtpad
-              portHints={[`pin${index + 37}`]}
-              pcbX={2.2 - index * 0.4}
-              pcbY={3.0}
-              width="0.2mm"
-              height="0.95mm"
-              shape="rect"
-            />
+            <Fragment key={`top-${index}`}>
+              <smtpad
+                portHints={[`pin${index + 37}`]}
+                pcbX={2.2 - index * 0.4}
+                pcbY={3.0}
+                width="0.2mm"
+                height="0.95mm"
+                shape="rect"
+              />
+            </Fragment>
           ))}
           <smtpad
             portHints={["pin49", "thermalpad"]}
@@ -134,10 +141,16 @@ export const NRF52810_QFAA_R = (props: ChipProps<typeof pinLabels>) => {
         </footprint>
       }
       cadModel={{
-        objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C141828.obj?uuid=46b18d34784345cd8b1ca45b59e906cb",
-        stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C141828.step?uuid=46b18d34784345cd8b1ca45b59e906cb",
+        objUrl:
+          "https://modelcdn.tscircuit.com/easyeda_models/assets/C141828.obj?uuid=46b18d34784345cd8b1ca45b59e906cb",
+        stepUrl:
+          "https://modelcdn.tscircuit.com/easyeda_models/assets/C141828.step?uuid=46b18d34784345cd8b1ca45b59e906cb",
         pcbRotationOffset: 270,
-        modelOriginPosition: { x: -0.00005079999993995443, y: -0.00005079999993995443, z: 0 },
+        modelOriginPosition: {
+          x: -0.00005079999993995443,
+          y: -0.00005079999993995443,
+          z: 0,
+        },
       }}
       {...props}
     />
