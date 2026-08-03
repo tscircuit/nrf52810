@@ -68,6 +68,7 @@ export default () => (
     solderMaskColor="black"
     silkscreenColor="white"
     doubleSidedAssembly
+    isViaInPadAllowed
     schLayout={{ layoutMode: "relative" }}
     autorouter={{
       preset: "auto_local",

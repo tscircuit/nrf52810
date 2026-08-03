@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
-    "tscircuit": "0.0.2205",
+    "tscircuit": "0.0.2212",
     "typescript": "^5.0.0"
   }
 }
