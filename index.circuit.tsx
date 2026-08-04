@@ -738,8 +738,9 @@ export default () => (
       <PcbCap
         name="C14"
         capacitance="0.5pF"
-        pcbX={10.8}
-        pcbY={-0.4}
+        pcbX={9.51}
+        pcbY={4.9}
+        pcbRotation={90}
         schX={2}
         schY={RF_SHEET_Y - 1}
         schSectionName={RF_MATCH_SECTION}
@@ -819,17 +820,14 @@ export default () => (
         from=".L2 > .pin2"
         to=".C14 > .pin1"
         width="0.18mm"
-        maxLength="5mm"
+        maxLength="2mm"
         pcbPathRelativeTo=".L2 > .pin2"
-        pcbPath={[
-          { x: 1.15, y: 0 },
-          { x: 1.15, y: -3.7 },
-        ]}
+        pcbPath={["C14.pin1"]}
       />
       <via
         name="VIA_C14_GND"
-        pcbX={11.31}
-        pcbY={-1.2}
+        pcbX={9.51}
+        pcbY={5.9}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
         connectsTo={[".C14 > .pin2", "net.GND"]}
