@@ -1,17 +1,13 @@
 import { ABS07_32_768KHZ_9_T } from "./imports/ABS07_32_768KHZ_9_T";
-import { AO3401A } from "./imports/AO3401A";
-import { BAT54HT1G } from "./imports/BAT54HT1G";
 import { BM05B_SRSS_TB_LF__SN_ } from "./imports/BM05B_SRSS_TB_LF__SN_";
 import { E6C0606RGBC3UDA } from "./imports/E6C0606RGBC3UDA";
-import { MCP1700T_3302E_TT } from "./imports/MCP1700T_3302E_TT";
 import { MY_2032_16 } from "./imports/MY_2032_16";
 import { NRF52810_QFAA_R } from "./imports/NRF52810_QFAA_R";
 import { RFANT3216120A5T } from "./imports/RFANT3216120A5T";
-import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12";
 import { X201632MKB4SI } from "./imports/X201632MKB4SI";
 
 const CORE_SHEET = "core-power";
-const INTERFACE_SHEET = "usb-led";
+const INTERFACE_SHEET = "status-led";
 const CLOCK_SHEET = "clocks";
 const RF_SHEET = "rf-front-end";
 const CLOCK_SHEET_Y = 4;
@@ -20,8 +16,6 @@ const RF_SHEET_Y = -2;
 const POWER_INPUT_SECTION = "power-input";
 const MCU_POWER_SECTION = "mcu-power";
 const PROGRAMMING_SECTION = "programming";
-const USB_INPUT_SECTION = "usb-input";
-const POWER_MUX_SECTION = "power-mux";
 const STATUS_LED_SECTION = "status-led";
 const HF_CLOCK_SECTION = "hf-clock";
 const LF_CLOCK_SECTION = "lf-clock";
@@ -74,8 +68,9 @@ export default () => (
   <board
     name="NRF52810_COINCELL_TRACKER"
     title="nRF52810 CR2032 BLE Tracker"
-    width="30mm"
+    width="24mm"
     height="30mm"
+    outlineOffsetX={3}
     borderRadius="2mm"
     thickness="1.0mm"
     layers={2}
@@ -160,7 +155,7 @@ export default () => (
       />
       <BM05B_SRSS_TB_LF__SN_
         name="J2"
-        pcbX={0}
+        pcbX={1}
         pcbY={-11.5}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         noSchematicRepresentation
@@ -189,8 +184,9 @@ export default () => (
       <MY_2032_16
         name="BT1"
         layer="bottom"
-        pcbX={0}
-        pcbY={-1.5}
+        pcbX={3}
+        pcbY={0.375}
+        pcbRotation={90}
         schX={-7}
         schY={1}
         schHeight={0.4}
@@ -203,8 +199,8 @@ export default () => (
       <PcbCap
         name="C4"
         capacitance="100nF"
-        pcbX={-2.0}
-        pcbY={8.7}
+        pcbX={-2}
+        pcbY={-2}
         schX={-4}
         schY={2}
         schSectionName={POWER_INPUT_SECTION}
@@ -213,8 +209,8 @@ export default () => (
         name="C9"
         capacitance="4.7uF"
         footprint="0603"
-        pcbX={-4.6}
-        pcbY={8.8}
+        pcbX={-1.8}
+        pcbY={-3.6}
         schX={-4}
         schY={0}
         schSectionName={POWER_INPUT_SECTION}
@@ -223,7 +219,7 @@ export default () => (
       <PcbCap
         name="C5"
         capacitance="100nF"
-        pcbX={-2.8}
+        pcbX={-3.3}
         pcbY={6.8}
         schX={3.5}
         schY={3}
@@ -251,8 +247,8 @@ export default () => (
         name="C10"
         capacitance="1uF"
         footprint="0603"
-        pcbX={1.0}
-        pcbY={8.7}
+        pcbX={1.8}
+        pcbY={8.8}
         pcbRotation={90}
         schX={4.57}
         schY={-1.5}
@@ -320,8 +316,8 @@ export default () => (
         schSectionName={PROGRAMMING_SECTION}
       />
 
-      <trace from=".BT1 > .VBAT_P1" to="net.VBAT_RAW" width="0.15mm" />
-      <trace from=".BT1 > .VBAT_P2" to="net.VBAT_RAW" width="0.15mm" />
+      <trace from=".BT1 > .VBAT_P1" to="net.VBAT" width="0.15mm" />
+      <trace from=".BT1 > .VBAT_P2" to="net.VBAT" width="0.15mm" />
       <trace from=".BT1 > .VBAT_N" to="net.GND" width="0.15mm" />
 
       <trace from=".U1 > .VDD1" to="net.VBAT" width="0.15mm" />
@@ -352,7 +348,12 @@ export default () => (
       <trace from=".C4 > .pin2" to="net.GND" width="0.15mm" />
       <trace from=".C9 > .pin1" to="net.VBAT" width="0.15mm" />
       <trace from=".C9 > .pin2" to="net.GND" width="0.15mm" />
-      <trace from=".U1 > .DEC1" to=".C5 > .pin1" width="0.15mm" />
+      <trace
+        name="DEC1_DECOUPLING"
+        from=".U1 > .DEC1"
+        to=".C5 > .pin1"
+        width="0.15mm"
+      />
       <trace from=".C5 > .pin2" to="net.GND" width="0.15mm" />
       <trace from=".U1 > .DEC2" to=".C7 > .pin1" width="0.15mm" />
       <netlabel
@@ -372,7 +373,7 @@ export default () => (
       />
       <via
         name="VIA_C7_GND"
-        pcbX={7.91}
+        pcbX={8.3}
         pcbY={5.0}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
@@ -406,171 +407,12 @@ export default () => (
 
     <schematicsheet
       name={INTERFACE_SHEET}
-      displayName="USB-C Power & Status LED"
+      displayName="Status LED"
       sheetIndex={1}
     >
       <schematicsection
-        name={USB_INPUT_SECTION}
-        displayName="USB-C Power Input"
-      />
-      <schematicsection
-        name={POWER_MUX_SECTION}
-        displayName="USB / CR2032 Power Selection"
-      />
-      <schematicsection
         name={STATUS_LED_SECTION}
         displayName="RGB Status LED"
-      />
-
-      <TYPE_C_31_M_12
-        name="J1"
-        pcbX={-10.8}
-        pcbY={7}
-        pcbRotation={-90}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        noSchematicRepresentation
-      />
-      <schematicbox
-        name="J1 USB-C Power"
-        chipRef=".J1"
-        width={1.765}
-        height={1.6}
-        schX={-8}
-        schY={2}
-        schSectionName={USB_INPUT_SECTION}
-        pinLabels={{
-          pin1: "GND_A",
-          pin2: "GND_B",
-          pin3: "SHIELD1",
-          pin4: "VBUS_A",
-          pin5: "VBUS_B",
-          pin6: "CC1",
-          pin7: "CC2",
-        }}
-        schPinArrangement={{
-          leftSide: [],
-          rightSide: ["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7"],
-        }}
-      />
-      <resistor
-        name="R_CC1"
-        resistance="5.1k"
-        footprint="0402"
-        pcbX={-6.3}
-        pcbY={1.5}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        schX={-4.5}
-        schY={1}
-        schOrientation="vertical"
-        schSectionName={USB_INPUT_SECTION}
-      />
-      <resistor
-        name="R_CC2"
-        resistance="5.1k"
-        footprint="0402"
-        pcbX={-6.3}
-        pcbY={13}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        schX={-2.5}
-        schY={1}
-        schOrientation="vertical"
-        schSectionName={USB_INPUT_SECTION}
-      />
-      <MCP1700T_3302E_TT
-        name="U2"
-        pcbX={-11}
-        pcbY={-1.5}
-        pcbRotation={90}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        noSchematicRepresentation
-      />
-      <schematicbox
-        name="U2 USB LDO"
-        chipRef=".U2"
-        width={1.865}
-        height={0.8}
-        schX={0}
-        schY={2}
-        schSectionName={POWER_MUX_SECTION}
-        pinLabels={{ pin1: "VIN", pin2: "GND", pin3: "VOUT" }}
-        schPinArrangement={{
-          leftSide: [],
-          rightSide: ["pin1", "pin2", "pin3"],
-        }}
-      />
-      <PcbCap
-        name="C15"
-        capacitance="1uF"
-        footprint="0603"
-        pcbX={-13}
-        pcbY={-4.5}
-        schX={-1.5}
-        schY={0}
-        schSectionName={POWER_MUX_SECTION}
-      />
-      <PcbCap
-        name="C16"
-        capacitance="1uF"
-        footprint="0603"
-        pcbX={-9}
-        pcbY={-5}
-        schX={1.5}
-        schY={0}
-        schSectionName={POWER_MUX_SECTION}
-      />
-      <BAT54HT1G
-        name="D_USB"
-        pcbX={-6.5}
-        pcbY={-1.5}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        schX={3.5}
-        schY={2}
-        schSectionName={POWER_MUX_SECTION}
-      />
-      <AO3401A
-        name="Q1"
-        pcbX={-4}
-        pcbY={-5.2}
-        symbol={undefined}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        noSchematicRepresentation
-      />
-      <schematicbox
-        name="Q1 Battery Switch"
-        chipRef=".Q1"
-        width={1.39}
-        height={0.8}
-        schX={3.5}
-        schY={-1.5}
-        schSectionName={POWER_MUX_SECTION}
-        pinLabels={{ pin1: "D", pin2: "S", pin3: "G" }}
-        schPinArrangement={{
-          leftSide: [],
-          rightSide: ["pin1", "pin2", "pin3"],
-        }}
-      />
-      <resistor
-        name="R_GATE_USB"
-        resistance="100k"
-        footprint="0402"
-        pcbX={-9}
-        pcbY={-7}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        schX={1}
-        schY={-2.5}
-        schSectionName={POWER_MUX_SECTION}
-      />
-      <resistor
-        name="R_GATE_PD"
-        resistance="1M"
-        footprint="0402"
-        pcbX={-11}
-        pcbY={-7}
-        pcbSx={HIDE_FOOTPRINT_TEXT}
-        schX={3.5}
-        schY={-3.5}
-        schOrientation="vertical"
-        schSectionName={POWER_MUX_SECTION}
       />
 
       <schematicbox
@@ -591,8 +433,9 @@ export default () => (
         name="R_LED_B"
         resistance="1k"
         footprint="0402"
-        pcbX={-7.5}
-        pcbY={-9.5}
+        pcbX={1.5}
+        pcbY={-5}
+        pcbRotation={180}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={10}
         schY={3.2}
@@ -602,8 +445,9 @@ export default () => (
         name="R_LED_G"
         resistance="1k"
         footprint="0402"
-        pcbX={-7.5}
-        pcbY={-10.5}
+        pcbX={1.5}
+        pcbY={-6}
+        pcbRotation={180}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={10}
         schY={2}
@@ -613,8 +457,9 @@ export default () => (
         name="R_LED_R"
         resistance="1k"
         footprint="0402"
-        pcbX={-7.5}
-        pcbY={-11.5}
+        pcbX={2}
+        pcbY={-7}
+        pcbRotation={180}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         schX={10}
         schY={0.8}
@@ -622,8 +467,8 @@ export default () => (
       />
       <E6C0606RGBC3UDA
         name="LED1"
-        pcbX={-11}
-        pcbY={-11}
+        pcbX={-1.4}
+        pcbY={-6}
         pcbSx={HIDE_FOOTPRINT_TEXT}
         noSchematicRepresentation
       />
@@ -646,75 +491,6 @@ export default () => (
           rightSide: [],
         }}
       />
-
-      <trace
-        from=".J1 > .VBUS_A"
-        to=".C15 > .pin1"
-        width="0.3mm"
-        pcbPathRelativeTo=".J1 > .VBUS_A"
-        pcbPath={[
-          { x: -2.4, y: 3.3 },
-          { x: -2.15, y: 3.3 },
-          { x: -2.15, y: 0.1 },
-          { x: -2.15, y: 0.1, via: true, toLayer: "bottom" },
-          { x: -2.15, y: 0.1 },
-          { x: -2.15, y: -3.75 },
-          { x: 11.5, y: -3.75 },
-          { x: 11.5, y: -3.75, via: true, toLayer: "top" },
-          { x: 11.5, y: -3.75 },
-        ]}
-        schDisplayLabel="VBUS_5V"
-      />
-      <trace
-        from=".J1 > .VBUS_B"
-        to=".U2 > .VIN"
-        width="0.3mm"
-        pcbPathRelativeTo=".J1 > .VBUS_B"
-        pcbPath={[
-          { x: 2.4, y: 3.3 },
-          { x: 2.18, y: 3.3 },
-          { x: 2.18, y: 0 },
-          { x: 9.735, y: 0 },
-        ]}
-        schDisplayLabel="VBUS_5V"
-      />
-      <trace from=".J1 > .GND_A" to="net.GND" width="0.3mm" />
-      <trace from=".J1 > .GND_B" to="net.GND" width="0.3mm" />
-      <trace from=".J1 > .SHIELD1" to="net.GND" width="0.3mm" />
-      <trace from=".J1 > .SHIELD2" to="net.GND" width="0.3mm" />
-      <trace from=".J1 > .SHIELD3" to="net.GND" width="0.3mm" />
-      <trace from=".J1 > .SHIELD4" to="net.GND" width="0.3mm" />
-      <trace from=".J1 > .CC1" to=".R_CC1 > .pin1" width="0.15mm" />
-      <trace from=".R_CC1 > .pin2" to="net.GND" width="0.15mm" />
-      <trace from=".J1 > .CC2" to=".R_CC2 > .pin1" width="0.15mm" />
-      <trace from=".R_CC2 > .pin2" to="net.GND" width="0.15mm" />
-
-      <trace from=".U2 > .GND" to="net.GND" width="0.2mm" />
-      <trace
-        from=".U2 > .VIN"
-        to=".C15 > .pin1"
-        width="0.2mm"
-        schDisplayLabel="VBUS_5V"
-      />
-      <trace from=".C15 > .pin2" to="net.GND" width="0.2mm" />
-      <trace from=".U2 > .VOUT" to="net.USB_3V3" width="0.3mm" />
-      <trace from=".C16 > .pin1" to="net.USB_3V3" width="0.2mm" />
-      <trace from=".C16 > .pin2" to="net.GND" width="0.2mm" />
-      <trace from=".D_USB > .anode" to="net.USB_3V3" width="0.3mm" />
-      <trace from=".D_USB > .cathode" to="net.VBAT" width="0.3mm" />
-
-      <trace from=".Q1 > .D" to="net.VBAT_RAW" width="0.3mm" />
-      <trace from=".Q1 > .S" to="net.VBAT" width="0.3mm" />
-      <trace from=".Q1 > .G" to="net.USB_PRESENT" width="0.15mm" />
-      <trace
-        from=".C15 > .pin1"
-        to=".R_GATE_USB > .pin1"
-        width="0.15mm"
-        schDisplayLabel="VBUS_5V"
-      />
-      <trace from=".R_GATE_USB > .pin2" to="net.USB_PRESENT" width="0.15mm" />
-      <trace from=".R_GATE_PD > .pin1" to="net.USB_PRESENT" width="0.15mm" />
-      <trace from=".R_GATE_PD > .pin2" to="net.GND" width="0.15mm" />
 
       <trace from=".U1 > .P0_06" to=".R_LED_B > .pin1" width="0.15mm" />
       <trace from=".R_LED_B > .pin2" to=".LED1 > .BLUE_K" width="0.15mm" />
@@ -801,8 +577,8 @@ export default () => (
       />
       <ABS07_32_768KHZ_9_T
         name="X2"
-        pcbX={-4.2}
-        pcbY={5.1}
+        pcbX={-1.3}
+        pcbY={8.4}
         noSchematicRepresentation
       />
       <schematicsymbol
@@ -821,8 +597,8 @@ export default () => (
       <PcbCap
         name="C11"
         capacitance="12pF"
-        pcbX={-6.6}
-        pcbY={6.9}
+        pcbX={-2.2}
+        pcbY={10.4}
         schX={5}
         schY={CLOCK_SHEET_Y - 1}
         schSectionName={LF_CLOCK_SECTION}
@@ -830,8 +606,8 @@ export default () => (
       <PcbCap
         name="C12"
         capacitance="12pF"
-        pcbX={-6.6}
-        pcbY={3.3}
+        pcbX={-0.2}
+        pcbY={10.5}
         schX={7}
         schY={CLOCK_SHEET_Y - 1}
         schSectionName={LF_CLOCK_SECTION}
@@ -872,14 +648,14 @@ export default () => (
         from=".U1 > .XL1"
         to=".X2 > .OSC1"
         width="0.15mm"
-        maxLength="10mm"
+        maxLength="12mm"
         schDisplayLabel="XL1"
       />
       <trace
         from=".U1 > .XL2"
         to=".X2 > .OSC2"
         width="0.15mm"
-        maxLength="10mm"
+        maxLength="12mm"
         schDisplayLabel="XL2"
       />
       <trace
@@ -962,8 +738,9 @@ export default () => (
       <PcbCap
         name="C14"
         capacitance="0.5pF"
-        pcbX={10.8}
-        pcbY={-0.4}
+        pcbX={9.51}
+        pcbY={4.9}
+        pcbRotation={90}
         schX={2}
         schY={RF_SHEET_Y - 1}
         schSectionName={RF_MATCH_SECTION}
@@ -999,12 +776,11 @@ export default () => (
         from=".C3 > .pin2"
         to="net.GND"
         width="0.15mm"
-        maxLength="5mm"
         pcbPathRelativeTo=".C3 > .pin2"
         pcbPath={[
-          { x: 0.51, y: -0.8 },
-          { x: 0.51, y: -0.8, via: true, toLayer: "bottom" },
-          { x: 0.51, y: -0.8 },
+          { x: 1.6, y: -0.8 },
+          { x: 1.6, y: -0.8, via: true, toLayer: "bottom" },
+          { x: 1.6, y: -0.8 },
         ]}
       />
       <trace
@@ -1023,7 +799,6 @@ export default () => (
         from=".C13 > .pin2"
         to="net.GND"
         width="0.15mm"
-        maxLength="5mm"
         pcbPathRelativeTo=".C13 > .pin2"
         pcbPath={[
           { x: 0.51, y: -1.2 },
@@ -1041,19 +816,29 @@ export default () => (
         pcbPath={["ANT1.FEED"]}
       />
       <trace
+        name="RF_SHUNT_C14"
         from=".L2 > .pin2"
         to=".C14 > .pin1"
-        width="0.5mm"
-        maxLength="12mm"
+        width="0.18mm"
+        maxLength="2mm"
+        pcbPathRelativeTo=".L2 > .pin2"
+        pcbPath={["C14.pin1"]}
       />
-      <trace from=".C14 > .pin2" to="net.GND" width="0.15mm" maxLength="5mm" />
+      <via
+        name="VIA_C14_GND"
+        pcbX={9.51}
+        pcbY={5.9}
+        holeDiameter="0.2mm"
+        outerDiameter="0.35mm"
+        connectsTo={[".C14 > .pin2", "net.GND"]}
+      />
     </schematicsheet>
 
     <keepout
       shape="rect"
-      pcbX={12.6}
+      pcbX={12.7}
       pcbY={3.35}
-      width="4.8mm"
+      width="4.6mm"
       height="5.7mm"
       layers={["top", "bottom"]}
       excludeRefs={[".ANT1"]}
@@ -1065,16 +850,6 @@ export default () => (
       connectsTo="net.GND"
       clearance="0.2mm"
       boardEdgeMargin="0.25mm"
-      outline={[
-        { x: -14.5, y: -14.5 },
-        { x: 14.5, y: -14.5 },
-        { x: 14.5, y: 0.5 },
-        { x: 10.2, y: 0.5 },
-        { x: 10.2, y: 6.2 },
-        { x: 14.5, y: 6.2 },
-        { x: 14.5, y: 14.5 },
-        { x: -14.5, y: 14.5 },
-      ]}
     />
     <copperpour
       name="BOTTOM_GND"
@@ -1082,16 +857,6 @@ export default () => (
       connectsTo="net.GND"
       clearance="0.2mm"
       boardEdgeMargin="0.25mm"
-      outline={[
-        { x: -14.5, y: -14.5 },
-        { x: 14.5, y: -14.5 },
-        { x: 14.5, y: 0.5 },
-        { x: 10.2, y: 0.5 },
-        { x: 10.2, y: 6.2 },
-        { x: 14.5, y: 6.2 },
-        { x: 14.5, y: 14.5 },
-        { x: -14.5, y: 14.5 },
-      ]}
     />
 
     <silkscreentext
@@ -1107,14 +872,7 @@ export default () => (
       fontSize="0.55mm"
     />
     <silkscreentext text="V D G C R" pcbX={8.5} pcbY={-7.1} fontSize="0.55mm" />
-    <silkscreentext text="R C D G V" pcbX={0} pcbY={-14.2} fontSize="0.5mm" />
-    <silkscreentext text="RGB" pcbX={-11} pcbY={-13} fontSize="0.5mm" />
-    <silkscreentext
-      text="USB PWR"
-      pcbX={-13.8}
-      pcbY={7}
-      pcbRotation={90}
-      fontSize="0.5mm"
-    />
+    <silkscreentext text="R C D G V" pcbX={1} pcbY={-14.2} fontSize="0.5mm" />
+    <silkscreentext text="RGB" pcbX={-1.4} pcbY={-7.5} fontSize="0.5mm" />
   </board>
 );
