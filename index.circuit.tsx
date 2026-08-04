@@ -68,8 +68,9 @@ export default () => (
   <board
     name="NRF52810_COINCELL_TRACKER"
     title="nRF52810 CR2032 BLE Tracker"
-    width="30mm"
+    width="24mm"
     height="30mm"
+    outlineOffsetX={3}
     borderRadius="2mm"
     thickness="1.0mm"
     layers={2}
@@ -183,8 +184,8 @@ export default () => (
       <MY_2032_16
         name="BT1"
         layer="bottom"
-        pcbX={-9}
-        pcbY={0}
+        pcbX={3}
+        pcbY={0.375}
         pcbRotation={90}
         schX={-7}
         schY={1}
@@ -218,7 +219,7 @@ export default () => (
       <PcbCap
         name="C5"
         capacitance="100nF"
-        pcbX={-2.65}
+        pcbX={-3.3}
         pcbY={6.8}
         schX={3.5}
         schY={3}
@@ -347,7 +348,12 @@ export default () => (
       <trace from=".C4 > .pin2" to="net.GND" width="0.15mm" />
       <trace from=".C9 > .pin1" to="net.VBAT" width="0.15mm" />
       <trace from=".C9 > .pin2" to="net.GND" width="0.15mm" />
-      <trace from=".U1 > .DEC1" to=".C5 > .pin1" width="0.15mm" />
+      <trace
+        name="DEC1_DECOUPLING"
+        from=".U1 > .DEC1"
+        to=".C5 > .pin1"
+        width="0.15mm"
+      />
       <trace from=".C5 > .pin2" to="net.GND" width="0.15mm" />
       <trace from=".U1 > .DEC2" to=".C7 > .pin1" width="0.15mm" />
       <netlabel
@@ -367,7 +373,7 @@ export default () => (
       />
       <via
         name="VIA_C7_GND"
-        pcbX={7.91}
+        pcbX={8.3}
         pcbY={5.0}
         holeDiameter="0.2mm"
         outerDiameter="0.35mm"
@@ -451,7 +457,7 @@ export default () => (
         name="R_LED_R"
         resistance="1k"
         footprint="0402"
-        pcbX={1.5}
+        pcbX={2}
         pcbY={-7}
         pcbRotation={180}
         pcbSx={HIDE_FOOTPRINT_TEXT}
@@ -771,9 +777,9 @@ export default () => (
         width="0.15mm"
         pcbPathRelativeTo=".C3 > .pin2"
         pcbPath={[
-          { x: 0.51, y: -0.8 },
-          { x: 0.51, y: -0.8, via: true, toLayer: "bottom" },
-          { x: 0.51, y: -0.8 },
+          { x: 1.6, y: -0.8 },
+          { x: 1.6, y: -0.8, via: true, toLayer: "bottom" },
+          { x: 1.6, y: -0.8 },
         ]}
       />
       <trace
@@ -809,19 +815,32 @@ export default () => (
         pcbPath={["ANT1.FEED"]}
       />
       <trace
+        name="RF_SHUNT_C14"
         from=".L2 > .pin2"
         to=".C14 > .pin1"
-        width="0.5mm"
-        maxLength="12mm"
+        width="0.18mm"
+        maxLength="5mm"
+        pcbPathRelativeTo=".L2 > .pin2"
+        pcbPath={[
+          { x: 1.15, y: 0 },
+          { x: 1.15, y: -3.7 },
+        ]}
       />
-      <trace from=".C14 > .pin2" to="net.GND" width="0.15mm" />
+      <via
+        name="VIA_C14_GND"
+        pcbX={11.31}
+        pcbY={-1.2}
+        holeDiameter="0.2mm"
+        outerDiameter="0.35mm"
+        connectsTo={[".C14 > .pin2", "net.GND"]}
+      />
     </schematicsheet>
 
     <keepout
       shape="rect"
-      pcbX={12.6}
+      pcbX={12.7}
       pcbY={3.35}
-      width="4.8mm"
+      width="4.6mm"
       height="5.7mm"
       layers={["top", "bottom"]}
       excludeRefs={[".ANT1"]}
@@ -833,16 +852,6 @@ export default () => (
       connectsTo="net.GND"
       clearance="0.2mm"
       boardEdgeMargin="0.25mm"
-      outline={[
-        { x: -14.5, y: -14.5 },
-        { x: 14.5, y: -14.5 },
-        { x: 14.5, y: 0.5 },
-        { x: 10.2, y: 0.5 },
-        { x: 10.2, y: 6.2 },
-        { x: 14.5, y: 6.2 },
-        { x: 14.5, y: 14.5 },
-        { x: -14.5, y: 14.5 },
-      ]}
     />
     <copperpour
       name="BOTTOM_GND"
@@ -850,16 +859,6 @@ export default () => (
       connectsTo="net.GND"
       clearance="0.2mm"
       boardEdgeMargin="0.25mm"
-      outline={[
-        { x: -14.5, y: -14.5 },
-        { x: 14.5, y: -14.5 },
-        { x: 14.5, y: 0.5 },
-        { x: 10.2, y: 0.5 },
-        { x: 10.2, y: 6.2 },
-        { x: 14.5, y: 6.2 },
-        { x: 14.5, y: 14.5 },
-        { x: -14.5, y: 14.5 },
-      ]}
     />
 
     <silkscreentext
