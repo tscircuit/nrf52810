@@ -85,6 +85,15 @@ export default () => (
       traceClearance: "0.15mm",
     }}
   >
+    {/* Drop top-side GND connections into the bottom ground plane first. */}
+    <autoroutingphase
+      name="GND_FANOUT"
+      phaseIndex={0}
+      connection="net.GND"
+      autorouter="fanout"
+      fanoutRoutingLayers={["top"]}
+      fanoutPourNetMap={{ bottom: "GND" }}
+    />
     <NRF52810_QFAA_R
       name="U1"
       pcbX={2.0}
@@ -318,7 +327,14 @@ export default () => (
 
       <trace from=".BT1 > .VBAT_P1" to="net.VBAT" width="0.15mm" />
       <trace from=".BT1 > .VBAT_P2" to="net.VBAT" width="0.15mm" />
-      <trace from=".BT1 > .VBAT_N" to="net.GND" width="0.15mm" />
+      {/* BT1's bottom pad already sits directly in the bottom GND pour. */}
+      <trace
+        from=".BT1 > .VBAT_N"
+        to="net.GND"
+        width="0.15mm"
+        pcbPathRelativeTo=".BT1 > .VBAT_N"
+        pcbPath={[{ x: 0, y: 0.01 }]}
+      />
 
       <trace from=".U1 > .VDD1" to="net.VBAT" width="0.15mm" />
       <trace from=".U1 > .VDD2" to="net.VBAT" width="0.15mm" />
@@ -579,6 +595,7 @@ export default () => (
         name="X2"
         pcbX={-1.3}
         pcbY={8.4}
+        pcbRotation={180}
         noSchematicRepresentation
       />
       <schematicsymbol
@@ -748,7 +765,7 @@ export default () => (
       />
       <RFANT3216120A5T
         name="ANT1"
-        pcbX={13.0}
+        pcbX={12.75}
         pcbY={3.3}
         schX={6.82}
         schY={RF_SHEET_Y + 1}
