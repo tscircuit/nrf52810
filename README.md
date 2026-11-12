@@ -8,7 +8,7 @@ A compact, two-layer [tscircuit](https://tscircuit.com) board built around Nordi
 
 ## Hardware
 
-- 30 mm × 30 mm, 1.0 mm thick, two-layer PCB with rounded corners
+- 24 mm × 30 mm, 1.0 mm thick, two-layer PCB with rounded corners
 - All electronics are assembled on the top side; the CR2032 holder is on the bottom
 - `NRF52810-QFAA-R` in QFN48 using its internal LDO supply configuration
 - Bottom-mounted `MY-2032-16` CR2032 holder
